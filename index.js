@@ -15,8 +15,6 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-// lavendereverything7
-// l2d4bqGldwcwaIvW
 
 //mongodb config 
 
