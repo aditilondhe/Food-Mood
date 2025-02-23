@@ -39,6 +39,35 @@ async function run() {
     const menuCollections =client.db("demo-foodmood-client").collection("menus");
     const cartCollections=client.db("demo-foodmood-client").collection("cartItems");
 
+ //all cart operations 
+ //posting cart to db
+    app.post('/carts',async(req,res)=>{
+      const cartItem=req.body;
+      const result=await cartCollections.insertOne(cartItem);
+      res.send(result);
+
+    })
+
+
+    //get carts using email
+    app.get('/carts',async(req,res)=>{
+      const email=req.query.email;
+      const filter={email:email}
+      const result=await cartCollections.find(filter).toArray();
+      res.send(result);
+
+    })
+
+    app.get('/carts', async (req, res) => {
+      try {
+          const result = await cartCollections.find().toArray();
+          res.json(result);
+      } catch (error) {
+          res.status(500).json({ error: "Internal Server Error" });
+      }
+  });
+  
+  
     //all menu items operations
     app.get('/menu',async(req,res)=>
     {
